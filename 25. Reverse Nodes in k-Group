@@ -1,0 +1,61 @@
+class Solution {
+public:
+    
+
+    ListNode* reverse(ListNode* head){
+        ListNode* temp=head;
+        ListNode* next=temp->next;
+        ListNode* prev=NULL;
+
+        while(next){
+            temp->next=prev;
+            prev=temp;
+            temp=next;
+            next=temp->next;
+        }
+        temp->next=prev;
+        return temp;
+    }
+
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        // Reversing the first group on our alag se
+        //in first case head will change
+
+        int count=k-1;
+        ListNode* last=head;
+        while(last && count){
+            last=last->next;
+            count--;
+        }
+
+        if(last==NULL) return head;
+
+        ListNode* temp=last->next;
+        last->next=NULL;
+        reverse(head);
+        ListNode*prev=head;
+        head=last;
+
+        while(temp){
+            last=temp;
+            count=k-1;
+            while(last && count){
+                last=last->next;
+                count--;
+            }
+
+            if(last==NULL){ 
+                prev->next=temp;
+                return head;
+            }
+
+            ListNode* next=last->next;
+            last->next=NULL;
+            reverse(temp);
+            prev->next=last;
+            prev=temp;
+            temp=next;
+        }
+        return head;
+    }
+};
