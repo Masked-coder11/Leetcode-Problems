@@ -1,0 +1,60 @@
+class Solution {
+public:
+    
+    bool check(string& curr){
+        stack<char>st;
+        for(int i=0;i<curr.length();i++){
+            if(curr[i]=='('){
+                st.push('(');
+            }
+            else{
+                if(!st.empty() && st.top()=='('){
+                    st.pop();
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return st.empty();
+    }
+    void solve1(int ind, int n, string curr, vector<string>&ans){
+        if(ind==2*n){
+            if(check(curr)){
+                ans.push_back(curr);
+            }
+            return;
+        }
+        solve1(ind+1,n,curr+'(',ans);
+        solve1(ind+1,n,curr+')',ans);
+
+        return;
+    }
+
+    void solve2(int ind, int n, string curr, vector<string>&ans, int count){
+        if(ind==2*n){
+            if(count==0){
+                ans.push_back(curr);
+            }
+            return ;
+        }
+        if(count==0) solve2(ind+1, n, curr+'(', ans, count+1);
+        else{
+        solve2(ind+1, n, curr+'(', ans, count+1);
+        solve2(ind+1, n, curr+')', ans, count-1);
+        }
+
+        return;
+    }
+
+    vector<string> generateParenthesis(int n) {
+        // 1st approach
+        vector<string>ans;
+        string curr="";
+        // solve1(0, n, curr, ans);
+
+        // 2nd approach
+        solve2(0, n, curr, ans, 0);
+        return ans;
+    }
+};
