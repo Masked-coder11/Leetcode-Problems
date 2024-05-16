@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string shiftingLetters(string s, vector<int>& shifts) {
+        int sum=0;
+        int n=s.length();
+
+        for(int i=n-1;i>=0;i--){
+            shifts[i]%=26;
+
+            sum+=shifts[i];
+
+            sum%=26;
+
+            int x=s[i]-'a';
+            x+=sum;
+            x%=26;
+
+            char a='a'+x;
+            s[i]=a;
+        }
+
+        return s;
+        
+    }
+};
