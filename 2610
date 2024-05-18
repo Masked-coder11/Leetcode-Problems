@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> findMatrix(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        vector<vector<int>>ans;
+
+        for(int i=0;i<nums.size();i++){
+            int ele=nums[i];
+            mp[ele]++;
+
+            int pos=mp[ele]-1;
+            if(ans.size()<=pos){
+                ans.push_back({});
+            }
+
+            ans[pos].push_back(ele);
+        }
+        return ans;
+        
+    }
+};
