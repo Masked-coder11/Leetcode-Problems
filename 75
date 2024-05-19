@@ -1,0 +1,25 @@
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int x=0, y=0, z=0;
+        for(auto it:nums){
+            if(it==0) x++;
+            else if(it==1) y++;
+            else z++;
+        }
+
+        int i=0;
+        for(int a=0;a<x;a++){
+            nums[i++]=0;
+        }
+        for(int a=0;a<y;a++){
+            nums[i++]=1;
+        }
+        for(int a=0;a<z;a++){
+            nums[i++]=2;
+        }
+
+        return;
+        
+    }
+};
