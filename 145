@@ -1,0 +1,44 @@
+class Solution {
+public:
+    void helper(TreeNode* root, vector<int>&ans){
+        if(root){
+            helper(root->left, ans);
+            helper(root->right, ans);
+            ans.push_back(root->val);
+        }
+        return;
+    }
+
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int>ans;
+        // helper(root, ans);
+        stack<pair<TreeNode*,pair<int,int>>>st;
+        if(root){
+            st.push({root, {0,0}});
+        }
+        while(!st.empty()){
+            TreeNode* node=st.top().first;
+            int left=st.top().second.first;
+            int right=st.top().second.second;
+            st.pop();
+
+            if(left==0){
+                st.push({node,{1,0}});
+                if(node->left){
+                    st.push({node->left, {0,0}});
+                }
+            }
+            else if(right==0){
+                st.push({node, {1,1}});
+                if(node->right){
+                    st.push({node->right, {0,0}});
+                }
+            }
+            else{
+                ans.push_back(node->val);
+            }
+        }
+
+        return ans;
+    }
+};
