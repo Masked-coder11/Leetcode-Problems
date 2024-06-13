@@ -1,0 +1,30 @@
+class Solution{
+public:
+    Node* divide(int n, Node *head){
+        // code here
+        Node* evenD=new Node(-1);
+        Node* oddD=new Node(-1);
+        Node* a1=evenD, *a2=oddD;
+        Node*temp=head;
+        while(temp){
+            if(temp->data%2==1){
+                a2->next=temp;
+                a2=a2->next;
+                temp=temp->next;
+                a2->next=NULL;
+            }
+            else{
+                a1->next=temp;
+                a1=a1->next;
+                temp=temp->next;
+                a1->next=NULL;
+            }
+        }
+        a1->next=oddD->next;
+        delete(oddD);
+        head=evenD->next;
+        delete(evenD);
+        
+        return head;
+    }
+};
