@@ -1,0 +1,32 @@
+struct comp{
+    bool operator()(Node* n1, Node* n2){
+        return n1->data >= n2->data;
+    }
+};
+
+Node *flatten(Node *head)
+{
+   // Your code here
+   priority_queue<Node*, vector<Node*>, comp>pq;
+   Node* temp=head;
+   while(temp){
+       pq.push(temp);
+       temp=temp->next;
+   }
+   Node* dummy= new Node(-1);
+   Node* a=dummy;
+   while(!pq.empty()){
+       Node* node=pq.top();
+       pq.pop();
+       
+       a->bottom=node;
+       a=a->bottom;
+       if(node->bottom){
+           pq.push(node->bottom);
+       }
+       a->bottom=NULL;
+   }
+   head=dummy->bottom;
+   delete(dummy);
+   return head;
+}
