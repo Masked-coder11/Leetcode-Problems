@@ -1,0 +1,30 @@
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode* dummy1=new ListNode(-1), *dummy2=new ListNode(-1);
+        ListNode* a=dummy1, *b=dummy2, *temp=head;
+
+        while(temp){
+            if(temp->val <x){
+                a->next=temp;
+                a=a->next;
+                temp=temp->next;
+                a->next=NULL;
+            }
+            else{
+                b->next=temp;
+                b=b->next;
+                temp=temp->next;
+                b->next=NULL;
+            }
+        }
+        ListNode* head2=dummy2->next;
+        delete(dummy2);
+
+        a->next=head2;
+        ListNode* ans=dummy1->next;
+        delete(dummy1);
+
+        return ans;
+    }
+};
