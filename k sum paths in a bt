@@ -1,0 +1,38 @@
+//User function template for C++
+
+/*
+struct Node 
+{
+    int data;
+    Node *left;
+    Node *right;
+
+    Node(int val) {
+        data = val;
+        left = right = NULL;
+    }
+};
+*/
+class Solution{
+  public:
+    int solve(Node* root, int k, int sum, unordered_map<int,int>&mp){
+        if(root==NULL) return 0;
+        
+        sum+=root->data;
+        int val=0;
+        val+=mp[sum-k];
+        mp[sum]++;
+        val+=solve(root->left, k, sum, mp);
+        val+=solve(root->right, k, sum, mp);
+        mp[sum]--;
+        return val;
+    }
+  
+    int sumK(Node *root,int k)
+    {
+        // code here 
+        unordered_map<int,int>mp;
+        mp[0]=1;
+        return solve(root, k, 0, mp);
+    }
+};
